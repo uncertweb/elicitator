@@ -1,0 +1,1 @@
+This is a continuous variable view for a problem owner

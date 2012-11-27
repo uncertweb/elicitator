@@ -1,0 +1,21 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/13-View
+
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    #title:        symfony project
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    #robots:       index, follow
+
+  stylesheets:    [960.css, main.css, forms.css]
+
+  javascripts:    [jquery.js, jquery-ui.js, elicitor.js, forms.js, tiny_mce/tiny_mce.js, http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/i18n/jquery-ui-i18n.min.js]
+  #http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js
+
+  has_layout:     true
+  layout:         layout

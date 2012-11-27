@@ -1,0 +1,206 @@
+sfGuardUser:
+  columns:
+    institute: { type: string(255) }
+    web_address: { type: string(255) }
+    expertise: { type: string(255) }
+  relations:
+    sfGuardUser:
+      class: sfGuardUser
+      local: user_id
+      foreign: expert_id
+      refClass: UserExpert
+      alias: Experts
+
+Distribution:
+  columns:
+    name: { type: enum, values: ['Normal', 'LogNormal', 'Beta', 'Gamma', 'LogStudentT' , 'StudentT'] ,notnull: true }
+
+DistributionParameter:
+  columns:
+    name: { type: enum, values: ['mean', 'variance', 'alpha', 'beta', 'degrees of freedom', 'shape', 'scale'] }
+    value: { type: double, notnull: true }
+    distribution_id: { type: integer, notnull: true }
+  relations:
+    Distribution:
+      class: Distribution
+      local: distribution_id
+      foreign: id
+      foreignAlias: Parameters
+
+ElicitationProblem:
+  actAs: { Timestampable: ~ }
+  columns:
+    name: { type: string(255), notnull: true }
+    description: { type: string(2000), notnull: false }
+    attached_file: { type: string(255), notnull: false }
+    thumbnail: { type: string(255), notnull: false }
+    user_id: { type: integer, notnull: true }
+  relations:
+    ProblemOwner:
+      class: sfGuardUser
+      local: user_id
+      foreign: id
+      foreignAlias: ElicitationProblems
+
+CategoricalElicitation:
+  actAs: { Timestampable: ~ }
+  columns:
+    read_briefing_document: { type: boolean, notnull: true, default: false }
+    results: { type: string(1000), notnull: true }
+    expert_id: { type: integer, notnull: true }
+    enabled: { type: boolean, default: true }
+    variable_id: { type: integer, notnull: true }
+    opt_out: { type: boolean, default: false }
+    reason: { type: text, notnull: false }
+  relations:
+    Variable:
+      class: Variable
+      local: variable_id
+      foreign: id
+      foreignAlias: CategoricalResults
+      onDelete: CASCADE
+    Expert:
+      class: sfGuardUser
+      local: expert_id
+      foreign: id
+      foreignAlias: ElicitationAnswers
+
+SpatialElicitation:
+  actAs: { Timestampable: ~ }
+  columns:
+    read_briefing_document: { type: boolean, notnull: true, default: false }
+    minimum: { type: double, notnull: false }
+    maximum: { type: double, notnull: false }
+    lower: { type: double, notnull: false }
+    median: { type: double, notnull: false }
+    upper: { type: double, notnull: false }
+    #lsq:    { type: double }
+    enabled: { type: boolean, default: true }
+    expert_id: { type: integer, notnull: true }
+    variable_id: { type: integer, notnull: true }
+    distribution_id: { type: integer, notnull: false }
+    opt_out: { type: boolean, default: false }
+    reason: { type: text, notnull: false }
+  relations:
+    Variable:
+      class: Variable
+      local: variable_id
+      foreign: id
+      foreignAlias: Results
+      onDelete: CASCADE
+    Expert:
+      class: sfGuardUser
+      local: expert_id
+      foreign: id
+      foreignAlias: ElicitationAnswers
+    Distribution:
+      class: Distribution
+      local: distribution_id
+      foreign: id
+      foreignAlias: Elicitation
+      foreignType: one
+
+ContinuousElicitation:
+  actAs: { Timestampable: ~ }
+  columns:
+    read_briefing_document: { type: boolean, notnull: true, default: false }
+    minimum: { type: double, notnull: false }
+    maximum: { type: double, notnull: false }
+    lower: { type: double, notnull: false }
+    median: { type: double, notnull: false }
+    upper: { type: double, notnull: false }
+    enabled: { type: boolean, default: true }
+    distribution_id: { type: integer, notnull: false }
+    expert_id: { type: integer, notnull: true }
+    variable_id: { type: integer, notnull: true }
+    opt_out: { type: boolean, default: false }
+    reason: { type: text, notnull: false }
+  relations:
+    Variable:
+      class: Variable
+      local: variable_id
+      foreign: id
+      foreignAlias: Results
+      onDelete: CASCADE
+    Expert:
+      class: sfGuardUser
+      local: expert_id
+      foreign: id
+      foreignAlias: ElicitationAnswers
+    Distribution:
+      class: Distribution
+      local: distribution_id
+      foreign: id
+      foreignAlias: Elicitation
+      foreignType: one
+
+Variable:
+  actAs: { Timestampable: ~ }
+  columns:
+    name: { type: string(255), notnull: true }
+    variable_type: { type: enum, values: ['Categorical', 'Continuous', 'Spatial'], notnull: true }
+    variable_parameters: { type: string(1000), notnull: false }
+    deadline: { type: date}
+    problem_id: { type: integer, notnull: true }
+    #TODO add the briefing document sections once been clarified.
+    research_objective: { type: string(1000), notnull: false }
+    outline: { type: string(1000) }
+    variable_characteristics: { type: string(1000) }
+    elicitation_techniques: { type: string(1000) }
+    definitions: { type: string(1000) }
+    requirements: { type: string(1000) }
+    bias_causes: { type: string(1000) }
+    recommended_literature: { type: string(1000) }
+    study_area_description: { type: string(1000) }
+    study_area_geometry:    { type: string(1000) }
+    distribution_id: { type: integer, notnull: false }
+  relations:
+    ElicitationProblem:
+      class: ElicitationProblem
+      local: problem_id
+      foreign: id
+      foreignAlias: Variables
+      onDelete: CASCADE
+    Experts:
+      class: sfGuardUser
+      local: variable_id
+      foreign: expert_id
+      refClass: VariableExpert
+      onDelete: CASCADE
+    Distribution:
+      class: Distribution
+      local: distribution_id
+      foreign: id
+      foreignAlias: Variable
+      foreignType: one
+
+
+
+### Many 2 Many
+UserExpert:
+  columns:
+    user_id: { type: integer, primary: true }
+    expert_id: { type: integer, primary: true }
+  relations:
+    sfGuardUser:
+      alias: Expert
+      local: expert_id
+      onDelete: CASCADE
+    sfGuardUser2:
+      class: sfGuardUser
+      alias: ProblemOwner
+      local: user_id
+      onDelete: CASCADE
+
+VariableExpert:
+  columns:
+    variable_id: { type: integer, primary: true }
+    expert_id: { type: integer, primary true }
+  relations:
+    sfGuardUser:
+      alias: Expert
+      local: expert_id
+    Variable:
+      alias: Variable
+      local: variable_id
+      onDelete: CASCADE

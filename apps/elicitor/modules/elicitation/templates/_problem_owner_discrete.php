@@ -1,0 +1,1 @@
+This is a discrete variable view for a problem owner

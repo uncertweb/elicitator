@@ -1,0 +1,339 @@
+# # Populate this file with data to be loaded by your ORM's *:data-load task.
+# # You can create multiple files in this directory (i.e. 010_users.yml,
+# # 020_articles.yml, etc) which will be loaded in alphabetical order.
+# #
+# # See documentation for your ORM's *:data-load task for more information.
+#
+# User:
+#   fabien:
+#     username: fabien
+#     password: changeme
+#     name:     Fabien Potencier
+#     email:    fabien.potencier@symfony-project.com
+#   kris:
+#     username: Kris.Wallsmith
+#     password: changeme
+#     name:     Kris Wallsmith
+#     email:    kris.wallsmith@symfony-project.com
+
+sfGuardUser:
+  matt:
+    username: m.williams@me.com
+    password: password
+    first_name: Matthew
+    last_name: Williams
+    is_active: 1
+  dan:
+    username: d.cornford@aston.ac.uk
+    password: password
+    first_name: Dan
+    last_name: Cornford
+  andrew:
+    username: a.hall@pci.co.uk
+    password: password
+    first_name: Andrew
+    last_name: Hall
+  rosie:
+    username: mrs_fran@hotmail.com
+    password: password
+    first_name: Rosie
+    last_name: Williams
+  remi:
+    username: r.barillec@aston.ac.uk
+    password: password
+    first_name: Remi
+    last_name: Barillec
+  joe:
+    username: j.williams@thehomeworkclub.cl
+    first_name: Joseph
+    last_name: Williams
+    password: password
+  john:
+    username: j.fecci@thehomeworkclub.cl
+    first_name: John
+    last_name: Fecci
+    password: password
+  owner:
+    username: problem.owner@aston.ac.uk
+    first_name: Problem
+    last_name: Owner
+    password: password
+<?php for($i = 0; $i < 100; $i++): ?>
+  expert<?php echo $i; ?>:
+    username: expert<?php echo $i ?>@aston.ac.uk
+    first_name: Expert
+    last_name: <?php echo $i."\n"; ?>
+    institute: Aston University
+    expertise: |
+      Worms, Snails, Pidgeons
+    password: password
+<?php endfor; ?>
+
+UserExpert:
+<?php for($i = 0; $i < 100; $i++): ?>
+  test_<?php echo $i; ?>:
+    ProblemOwner: owner
+    Expert: expert<?php echo $i."\n"; ?>
+<?php endfor; ?>
+
+ElicitationProblem:
+  landsfacts:
+    name: LandsFACTS
+    description: |
+      The model takes information about possible crop rotations, land capability,
+      current field usage and temporal/spatial constraints on cropping and
+      simulates cropping patterns across each field for a given number of years.
+      This is achieved through stochastic simulation of field usage using different
+      transition matrices for different land capabilities (all within the specified
+      constraints).
+    ProblemOwner: matt
+    attached_file: d5-1.pdf
+    thumbnail: <?php echo sha1('d5-1.pdf') . '.jpg'; ?>
+
+  csrg_example:
+    name: Western (Basalt) Plains Natural Temperate Grassland
+    description: |
+      The native Western (Basalt) Plains Natural Temperate Grassland to the west of Melbourne is one of Australia’s most
+      endangered vegetation types with over 99.5% of its original distribution having been lost or substantially altered. It supports a diversity of animal species, including
+      eight nationally threatened species. The remaining remnants predominantly occur on private land (DNRE, 1997) and continue to face a number of threats including inappropriate grazing or fire regimes, weed invasion, inappropriate herbicide use and the application of fertilizers.
+      The condition of native grassland is expected to change depending on its management status. This elicitation exercise aims at discovering your beliefs about the rate of change for grassland in two different categories: managed and unmanaged. Land is considered to be managed when it is within a public reserve or private land incentive program. Unmanaged land is grassland on private land subject to entitled uses (such as grazing) and uncontrolled threats (such as perennial weed invasion). There will be variation among the grasslands in the two categories, and so it is important that you include this uncertainty in the values you submit. You can do this by specifying ranges and quartiles.
+    ProblemOwner: owner
+
+<?php for($i=0; $i < 100; $i++): ?>
+  test_<?php echo $i; ?>:
+    name: Example <?php echo $i."\n" ?>
+    description: this is dull
+    ProblemOwner: owner
+<?php endfor; ?>
+
+Variable:
+  weight:
+    name: Condition curve – managed
+    variable_type: Spatial
+    deadline: '2011-12-31'
+    research_objective: |
+      <p>The research aims to characterise and quantify spatial variation of
+      variable Y in soil surface in area X. Results of the research will be used
+      for scientific report only. The main audiences of the report will be
+      students (mainly graduate), experts and scientists in soil science.</p>
+    outline: |
+      <p>The elicitation procedure has two main rounds. The first round is
+      elicitation of marginal continuous distribution of variable Y at random
+      location in study area X. The second is the elicitation of the variogram.
+      Each round will take around 30 minutes to complete with four questions in
+      round 1 and seven questions in round 2. Round 2, however, will not be
+      proceeded immediately after round 1. There will be a
+      seven&ndash;day&ndash;break in between two rounds to allow all experts
+      modifying their judgements.</p>
+    variable_characteristics: |
+      <p>Variable Y is topsoil property. The study area X is located in lowland
+      area in the south-west delta of the Netherlands. This is the delta of the
+      Rhine-Meuse River near Rotterdam.</p>
+    elicitation_techniques: |
+      <p>To characterise marginal distribution, the quartile method is used. In
+      this method, experts will be asked to judge value of median, and upper and
+      lower quartiles. Besides, experts will be asked to judge the maximum and
+      the minimum value of Y as well.  To characterise the variogram, the
+      technique vary between two kind of marginal distributions: normal and
+      log-normal. In case of Gaussian random field, experts will be asked to
+      give judgements for the median of each difference in value between two
+      locations. In case of log-normal random field, the ratio of difference,
+      which is assumed to be a factor of lager value over smaller value, will be
+      elicited.</p>
+    definitions: |
+      <ul><li>Median divides a data set into two equal parts.
+      </li><li>Lower quartile is median of the lower half of the data.
+      </li><li>Upper quartile is median of the upper half of the data.
+      </li></ul>
+    requirements: |
+      <p>Experts participating in this research are kindly required to provide
+      personal data. Experts are kindly required to involve in 2 rounds of
+      elicitation procedure.</p>
+    bias_causes: |
+      <p>Experts can possibly make biased judgements. Some causes of biased
+      judgments that experts are kindly asked to be aware of when giving
+      judgements:</p><ol><li>Availability bias: judgements given by
+      experts are affected by easy recall of recent experience.</li><li>
+      Representativeness bias: judgements given by experts are based on
+      inappropriate or too specific evidences.</li><li>Anchoring and
+      adjustment: experts judge by first choosing a starting point as first
+      estimation and then adjusting the estimation.</li><li>Motivational
+      bias: judgements given by experts are motivated by inappropriate factors
+      such as satisfying expectation of society, legal constraints, and
+      professional responsibility.</li></ol>
+    ElicitationProblem: csrg_example
+  height:
+    name: Condition curve – unmanaged
+    variable_type: Continuous
+    deadline: '2011-12-31'
+    research_objective: |
+      <p>The research aims to determine how tall Dan is.</p>
+    outline: |
+      <p>The elicitation procedure has a single round. This is the
+      elicitation of the marginal continuous distribution of Dan's height.
+      The round will take around 30 minutes to complete.</p>
+    variable_characteristics: |
+    elicitation_techniques: |
+      <p>To characterise marginal distribution, the quartile method is used. In
+      this method, experts will be asked to judge value of median, and upper and
+      lower quartiles. Besides, experts will be asked to judge the maximum and
+      the minimum value of Dan's height as well.</p>
+    definitions: |
+      <ul><li>Median divides a data set into two equal parts.
+      </li><li>Lower quartile is median of the lower half of the data.
+      </li><li>Upper quartile is median of the upper half of the data.
+      </li></ul>
+    requirements: |
+      <p>Experts participating in this research are kindly required to provide
+      personal opinions.</p>
+    bias_causes: |
+      <p>Experts can possibly make biased judgements. Some causes of biased
+      judgments that experts are kindly asked to be aware of when giving
+      judgements:</p><ol><li>Dan's listening: don't worry about offending him!</li>
+      <li>Representativeness bias: judgements given by experts are based on
+      inappropriate or too specific evidences.</li>
+      <li>Anchoring and adjustment: experts judge by first choosing a starting point as first
+      estimation and then adjusting the estimation.</li>
+      <li>Motivational bias: judgements given by experts are motivated by inappropriate factors
+      such as satisfying expectation of society, legal constraints, and
+      professional responsibility.</li>
+      </ol>
+    ElicitationProblem: csrg_example
+  fave_tshirt:
+    name: Condition threshold for recovery
+    deadline: '2011-12-31'
+    research_objective: |
+      <p>Unmanaged grasslands have been observed to degrade over time, while managed grasslands generally improve in quality. However, once a patch of grassland falls below a certain condition threshold, it is difficult to fully restore it to a state where it can support many of the original species. This part of the elicitation is about the level of condition at which you believe this threshold lies.
+      </p><p>Please submit:</p>
+      <ul>
+      <li>the median (the level at which you believe this threshold is most likely to lie)</li>
+      <li>the minimum and maximum (the condition levels outside which you are sure it does not lie)</li>
+      <li>the lower and upper quartiles (the levels between which you are 50% sure the value lies)</li>
+      </ul>
+      </p>
+    variable_type: Continuous
+    ElicitationProblem: csrg_example
+<?php for($i = 0; $i<100; $i++): ?>
+  var<?php echo $i; ?>:
+    name: Test variable <?php echo $i . "\n"; ?>
+    deadline: '2011-12-31'
+    variable_type: Continuous
+    ElicitationProblem: test_0
+<?php endfor; ?>
+  tmats:
+    name: Transition matrices
+    deadline: '2011-12-31'
+    variable_type: Spatial
+    research_objective: |
+    outline: |
+      <p>The elicitation procedure has two main rounds. The first round is
+      elicitation of marginal continuous distribution of variable Y at random
+      location in study area X. The second is the elicitation of the variogram.
+      Each round will take around 30 minutes to complete with four questions in
+      round 1 and seven questions in round 2. Round 2, however, will not be
+      proceeded immediately after round 1. There will be a
+      seven&ndash;day&ndash;break in between two rounds to allow all experts
+      modifying their judgements.</p>
+    variable_characteristics: |
+      <p>Variable Y is topsoil property. The study area X is located in lowland
+      area in the south-west delta of the Netherlands. This is the delta of the
+      Rhine-Meuse River near Rotterdam.</p>
+    elicitation_techniques: |
+      <p>To characterise marginal distribution, the quartile method is used. In
+      this method, experts will be asked to judge value of median, and upper and
+      lower quartiles. Besides, experts will be asked to judge the maximum and
+      the minimum value of Y as well.  To characterise the variogram, the
+      technique vary between two kind of marginal distributions: normal and
+      log-normal. In case of Gaussian random field, experts will be asked to
+      give judgements for the median of each difference in value between two
+      locations. In case of log-normal random field, the ratio of difference,
+      which is assumed to be a factor of lager value over smaller value, will be
+      elicited.</p>
+    definitions: |
+      <ul><li>Median divides a data set into two equal parts.
+      </li><li>Lower quartile is median of the lower half of the data.
+      </li><li>Upper quartile is median of the upper half of the data.
+      </li></ul>
+    requirements: |
+      <p>Experts participating in this research are kindly required to provide
+      personal data. Experts are kindly required to involve in 2 rounds of
+      elicitation procedure.</p>
+    bias_causes: |
+      <p>Experts can possibly make biased judgements. Some causes of biased
+      judgments that experts are kindly asked to be aware of when giving
+      judgements:</p><ol><li>Availability bias: judgements given by
+      experts are affected by easy recall of recent experience.</li><li>
+      Representativeness bias: judgements given by experts are based on
+      inappropriate or too specific evidences.</li><li>Anchoring and
+      adjustment: experts judge by first choosing a starting point as first
+      estimation and then adjusting the estimation.</li><li>Motivational
+      bias: judgements given by experts are motivated by inappropriate factors
+      such as satisfying expectation of society, legal constraints, and
+      professional responsibility.</li></ol>
+    ElicitationProblem: landsfacts
+
+VariableExpert:
+  1:
+    Variable: tmats
+    Expert: dan
+  2:
+    Variable: tmats
+    Expert: andrew
+  3:
+    Variable: tmats
+    Expert: rosie
+  4:
+    Variable: tmats
+    Expert: remi
+  5:
+    Variable: weight
+    Expert: expert1
+  6:
+    Variable: weight
+    Expert: expert2
+  7:
+    Variable: weight
+    Expert: expert3
+  8:
+    Variable: weight
+    Expert: expert4
+  9:
+    Variable: weight
+    Expert: expert5
+  10:
+    Variable: height
+    Expert: expert1
+  11:
+    Variable: height
+    Expert: expert2
+  12:
+    Variable: height
+    Expert: expert3
+  13:
+    Variable: height
+    Expert: expert4
+  14:
+    Variable: height
+    Expert: expert5
+  15:
+    Variable: fave_tshirt
+    Expert: expert1
+  16:
+    Variable: fave_tshirt
+    Expert: expert2
+  17:
+    Variable: fave_tshirt
+    Expert: expert3
+  18:
+    Variable: fave_tshirt
+    Expert: expert4
+  19:
+    Variable: fave_tshirt
+    Expert: expert5
+<?php for($i = 0; $i < 100; $i++): ?>
+  test2_<?php echo $i; ?>:
+    Variable: var<?php echo $i."\n"?>
+    Expert: expert1
+<?php endfor; ?>
+
+

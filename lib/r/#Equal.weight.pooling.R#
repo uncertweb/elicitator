@@ -1,0 +1,45 @@
+### From SHELF 2.0 - 13/1/2010
+
+# Main variables 
+# Number of experts: N.experts
+# Lower bound: Lo 
+# Upper bound: Up 
+# Lower quartile: l 
+# Median: m 
+# Upper quartile: u 
+# Parameters of pdf for each expert: betaparameters, normalparameters, gammaparameters, lnormparameters, logtparameters, tparametersght pooling #################################
+############# Set up number of percentiles #####################################
+x<-seq(from=Lo,to=Up,length=102)[2:101]
+
+############# Initialize parameters ############################################
+f.beta<-matrix(0,N.experts,100)
+f.normal<-matrix(0,N.experts,100)
+f.gamma<-matrix(0,N.experts,100)
+f.lognormal<-matrix(0,N.experts,100)
+f.logt<-matrix(0,N.experts,100)
+f.t<-matrix(0,N.experts,100)
+
+############# Sampling from multi - pdf ########################################
+for(i in 1:N.experts){
+ f.beta[i,]<-1/(Up-Lo)*dbeta((x-Lo)/(Up-Lo),betaparameters[i,1],betaparameters[i,2])
+ f.normal[i,]<-dnorm(x,normalparameters[i,1],normalparameters[i,2])
+ if(Lo>=0){
+  f.gamma[i,]<-dgamma(x,gammaparameters[i,1],gammaparameters[i,2])
+  f.lognormal[i,]<-dlnorm(x,lnormparameters[i,1],lnormparameters[i,2])
+  f.logt[i,]<-dt((log(x)-logtparameters[i,1])/logtparameters[i,2],degfree)/(logtparameters[i,2]*x)
+ }
+ f.t[i,]<-dt((x-tparameters[i,1])/tparameters[i,2],degfree)/(tparameters[i,2])
+}
+max.f<-max(c(max(f.beta),max(f.normal),max(f.gamma),max(f.lognormal),max(f.logt),max(f.t)))
+
+### Identify best fitting density for each expert ###############################
+f.best.fitting<-matrix(0,N.experts,100)
+best.fitting.names<-rep("None",N.experts)
+for(i in 1:N.experts){
+f.best.fitting[i,]<-switch(which(all.lsq[i,]==min(all.lsq[i,])),f.beta[i,],f.normal[i,],f.gamma[i,],f.lognormal[i,],f.logt[i,],f.t[i,])
+best.fitting.names[i]<-switch(which(all.lsq[i,]==min(all.lsq[i,])),"beta","normal","gamma","log normal","log Student-t", "Student-t")
+}
+
+########## Calculate linear pool from best fitting density for each expert ######
+best.linear.pool<-apply(f.best.fitting,2,mean)
+expert.names.bf<-paste(expert.names, best.fitting.names,sep=" ")

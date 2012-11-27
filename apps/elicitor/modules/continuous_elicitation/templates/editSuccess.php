@@ -1,0 +1,1 @@
+<?php include_partial('continuous_elicitation/form', array('form'=>$form, 'task'=>$task)); ?>

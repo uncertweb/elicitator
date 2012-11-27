@@ -1,0 +1,222 @@
+#definitions_template ul
+{
+    margin-left: 20px;
+}
+form table
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+div.global_errors
+{
+    margin-bottom: 10px;
+    color: red;
+    font-style: italic;
+}
+
+form table th
+{
+    font-weight: bold;
+    text-align: right;
+    font-size: 0.9em;
+    padding-right: 5px;
+    vertical-align: middle;
+    padding-top: 0px;
+}
+
+form table td.form_help
+{
+    color: #b5b5b5;
+    font-size: 0.8em;
+}
+
+input#signin-button
+{
+    margin-top: 0;
+    float: left;
+    margin-right: 10px;
+}
+
+form table td input.maininput
+{
+    background-image: url(/images/icons/magnifier.png);
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+form table td input.ac_loading {
+    background-image: url(/images/indicator.gif);
+}
+
+form table td input
+{
+    padding: 5px;
+    width: 230px;
+    border: 1px solid #CCC;
+    font-size: 1.1em;
+}
+
+form table td input[type=checkbox]
+{
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+form table td textarea
+{
+    padding: 5px;
+    border: 1px solid #CCC;
+    font-size: 1.1em;
+}
+
+form table td select
+{
+    width: 242px;
+    border: 1px solid #CCC;
+    font-size: 1.1em;
+    padding: 5px;
+}
+
+form table td select[name*="month"], form table td select[name*="day"], form table td select[name*="year"]
+{
+    width: auto;
+}
+
+form table td input[type=file]
+{
+    border: 0;
+    padding: 0;
+}
+
+.ui-datepicker-trigger
+{
+    cursor: pointer;
+}
+
+form table tr.error_list
+{
+    font-size: 0.8em;
+    color: #E54A4A;
+    /*font-style: italic;*/
+}
+
+form table ul.error_list li
+{
+    display: inline;
+}
+
+form table tr.errors td input
+{
+    background-color: #FFEBE8;
+    border: 1px solid #DD3C10;
+}
+
+form div#change-password
+{
+    display: none;
+}
+
+div#signin-box div.rememberme
+{
+    margin-top: 5px;
+
+    line-height: 2.2em;
+
+}
+
+div#signin-box div.rememberme label
+{
+    font-size: 1em;
+    display: inline;
+}
+
+
+
+input[type=submit] {
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+div#tabs form
+{
+    display: inline;
+}
+
+
+input.data_input
+{
+    width: 60px;
+}
+
+label.required
+{
+    font-weight: bold;
+}
+
+label.required span
+{
+    color: #E54A4A;
+}
+
+input.readonly
+{
+    background-color: #EDEFF1;
+    border: 1px solid #D5D6D8;
+    color: #A5A5A6;
+}
+
+.bean_tin_container
+{
+    float: left;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.bean_tin
+{
+    width: 85px;
+    height: auto;
+    min-height: 185px;
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.bean_silo
+{
+    width: auto;
+    height: 410px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.bean
+{
+    text-indent: -9999em;
+    float: left;
+    width: 24px;
+    height: 28px;
+    background-image: url(../images/bean.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.bean_placeholder
+{
+    width: 24px;
+    height: 28px;
+    background-color: rgba(0,0,0,0.1);
+    border: 1px solid #ccc;
+    float: left;
+}
+
+.hover
+{
+    background-color: #eee;
+    border: 1px solid #ccc;
+}

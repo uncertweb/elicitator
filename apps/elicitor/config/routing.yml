@@ -1,0 +1,144 @@
+### User routes ###
+
+user:
+  class: sfDoctrineRouteCollection
+  options: { model: sfGuardUser }
+
+change_password:
+  url: /user/:id/change_password
+  param: { module: user, action: password }
+  requirements: { id: \d+ }
+
+control_panel:
+  url: /control_panel
+  param: { module: user, action: show }
+
+### Expert routes ###
+expert_list:
+  url: /experts
+  param: { module: expert, action: index }
+
+expert_search:
+  url: /expert/autocomplete
+  param: { module: expert, action: autocomplete }
+
+expert_new:
+  url: /user/:id/expert/new
+  param: { module: expert, action: new }
+  requirements: { id: \d+ }
+
+expert_contact:
+  url: /message/create/:id
+  param: { module: expert, action: contact }
+  requirements: { id: \d+ }
+
+send_message:
+  url: /message/send
+  param: { module: expert, action: send }
+
+expert_delete:
+  url: /user/:user_id/expert/:expert_id/remove
+  param: { module: expert, action: remove_expert }
+  requirements: {user_id: \d+, expert_id: \d+ }
+
+continuous_opt_out:
+    url: /continuous/opt-out/:id
+    param: { module: continuous_elicitation, action: optOut }
+
+categorical_opt_out:
+    url: /categorical/opt-out/:id
+    param: { module: categorical_elicitation, action: optOut }
+
+disable_continuous_expert:
+  url: /continuous/disable/:id
+  param: { module: continuous_elicitation, action: disable }
+
+enable_continuous_expert:
+  url: /continuous/enable/:id
+  param: { module: continuous_elicitation, action: enable }
+
+disable_categorical_expert:
+  url: /categorical/disable/:id
+  param: { module: categorical_elicitation, action: disable }
+
+enable_categorical_expert:
+  url: /categorical/enable/:id
+  param: { module: categorical_elicitation, action: enable }
+
+### Elicitation problem routes ###
+
+problems:
+  class: sfDoctrineRouteCollection
+  options: { model: ElicitationProblem }
+
+### Variable routes ###
+
+tasks:
+  class: sfDoctrineRouteCollection
+  options: { model: Variable }
+
+tasks_new:
+  url: /tasks/new/:id
+  param: { module: tasks, action: new }
+  requirements:
+    id: \d+
+
+task_uncertml:
+  url: /uncertml/:hash
+  param: { module: tasks, action: uncertml }
+
+### Continuous elicitation ###
+
+categorical_elicitation:
+  class: sfDoctrineRouteCollection
+  options: { model: CategoricalElicitation }
+
+continuous_elicitation:
+  class: sfDoctrineRouteCollection
+  options: { model: ContinuousElicitation }
+
+spatial_elicitation:
+  class: sfDoctrineRouteCollection
+  options: { model: SpatialElicitation }
+
+
+continuous_elicitation_fit_pdf:
+  url: /continuous_elicitation/fit
+  param: { module: continuous_elicitation, action: data, method: get }
+
+spatial_elicitation_fit_pdf:
+  url: /spatial_elicitation/fit
+  param: { module: spatial_elicitation, action: data, method: get }
+
+
+# registration
+register:
+  url: /register
+  param: { module: register, action: index }
+
+# Security routes
+sf_guard_signin:
+  url:   /login
+  param: { module: sfGuardAuth, action: signin }
+
+sf_guard_signout:
+  url:   /logout
+  param: { module: sfGuardAuth, action: signout }
+
+sf_guard_forgot_password:
+  url:   /request_password
+  param: { module: sfGuardAuth, action: password }
+
+
+
+# default rules
+info_page:
+  url: /
+  param: { module: default, action: index }
+
+homepage:
+  url:   /control_panel
+  param: { module: user, action: show}
+
+
+

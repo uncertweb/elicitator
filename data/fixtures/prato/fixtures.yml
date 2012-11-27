@@ -1,0 +1,85 @@
+sfGuardUser:
+  owner:
+    username: problem.owner@aston.ac.uk
+    first_name: Problem
+    last_name: Owner
+    password: password
+<?php for($i = 0; $i < 100; $i++): ?>
+  expert<?php echo $i; ?>:
+    username: expert<?php echo $i ?>@aston.ac.uk
+    first_name: Expert
+    last_name: <?php echo $i."\n"; ?>
+    institute: Aston University
+    expertise: | 
+      Worms, Snails, Pidgeons
+    password: password
+<?php endfor; ?>
+
+UserExpert:
+<?php for($i = 0; $i < 100; $i++): ?>
+  test_<?php echo $i; ?>:
+    ProblemOwner: owner
+    Expert: expert<?php echo $i."\n"; ?>
+<?php endfor; ?>
+
+ElicitationProblem:
+  matt:
+    name: Matthew Williams
+    description: |
+      Matthew is a research fellow at Aston University. Despite his huge popularity, relatively little is known about this handsome individual.
+      The UK government has therefore commissioned an investigation into Matthew's lifestyle to try and understand more about him. The results will
+      provide the backbone of a new cloning initiative that aims to produce 1,000,000 Matthews by the year 2020. Something we can all look forward to!
+    ProblemOwner: owner
+    
+Variable:
+  cont_example:
+    name: Matthew's current blood alcohol content
+    variable_type: Continuous
+    deadline: '2011-09-27'
+    research_objective: |
+      <p>It is a well known fact that Matthew enjoys a drink in the evening. However, we wish
+      to know his blood alcohol content on a typical Monday afternoon.</p>
+    variable_characteristics: |
+      <p>Blood alcohol content (BAC), also called blood alcohol concentration, blood ethanol concentration, or blood alcohol level is most commonly used as a metric of alcohol intoxication for legal or medical purposes.
+      Blood alcohol content is usually expressed as a percentage of alcohol in the blood. For instance, a BAC of 0.10 means that 0.10% (one tenth of one percent) of a person's blood is alcohol.</p>
+    bias_causes: |
+      <p>Experts can possibly make biased judgements. Some causes of biased
+      judgments that experts are kindly asked to be aware of when giving
+      judgements:</p><ol><li>Availability bias: judgements given by
+      experts are affected by easy recall of recent experience.</li><li>
+      Representativeness bias: judgements given by experts are based on
+      inappropriate or too specific evidences.</li><li>Anchoring and
+      adjustment: experts judge by first choosing a starting point as first
+      estimation and then adjusting the estimation.</li><li>Motivational
+      bias: judgements given by experts are motivated by inappropriate factors
+      such as satisfying expectation of society, legal constraints, and
+      professional responsibility.</li></ol>
+    ElicitationProblem: matt
+  cat_example:
+    name: Matthew's favourite ice-cream flavour
+    variable_type: Categorical
+    variable_parameters: | 
+      Vanilla,Strawberry,Chocolate,Pistachio,Coffee,Other
+    deadline: '2011-09-26'
+    research_objective: |
+      <p>
+      We all like ice-cream. Matthew is no exception. However, his favourite flavour ice-cream is a closely guarded secret.
+      If we could obtain this secret information it would prove invaluable in our cloning program.
+      </p>
+    bias_causes: |
+      <p>Experts can possibly make biased judgements. Some causes of biased
+      judgments that experts are kindly asked to be aware of when giving
+      judgements:</p><ol><li>Don't be fooled by your stomach. Use your head.</li></ol>
+    ElicitationProblem: matt
+    
+VariableExpert:
+<?php for($i = 1; $i < 10; $i++): ?>
+  categorical<?php echo $i; ?>:
+    Variable: cat_example
+    Expert: expert<?php echo $i . "\n"; ?>
+<?php endfor; ?>
+<?php for($i = 1; $i < 10; $i++): ?>
+  continuous<?php echo $i; ?>:
+    Variable: cont_example
+    Expert: expert<?php echo $i . "\n"; ?>
+<?php endfor; ?>

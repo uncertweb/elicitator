@@ -1,0 +1,15 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  
+  from_email_address: webmaster@mrwillihog.co.uk
+  from_email_name:    The Elicitor
+  recaptcha_public_key: 6LezZcASAAAAAJ3QIitXJ8DEJzXMT-scfGmPEFZp
+  recaptcha_private_key: 6LezZcASAAAAACXaKEbSlKf0tEztY-GWXNM7_Iyt
+  max_experts_per_page: 5
+  max_problems_per_page: 5
+  elicitation_problem_upload_dir: documents/elicitation_problems/
+  thumbnail_upload_dir: thumbnails/
+  rscript_path: /usr/local/bin/
