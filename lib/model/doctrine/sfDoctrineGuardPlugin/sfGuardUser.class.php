@@ -23,10 +23,14 @@ class sfGuardUser extends PluginsfGuardUser {
     public function getTaskProgress($task_id) {
         $task = Doctrine_Core::getTable('Variable')
                         ->findOneById($task_id);
-        $results = $task->getResults();
-        if($results == null || empty($results) || $results->count() == 0) {
+
+        // Get the results
+        if($task->getVariableType() == "Continuous") {
+            $results = $task->getContinuousResults();
+        } else {
             $results = $task->getCategoricalResults();
         }
+
         foreach($results as $result) {
             if($result->getExpert()->getId() == $this->getId()) {
                 return $result->getProgress();

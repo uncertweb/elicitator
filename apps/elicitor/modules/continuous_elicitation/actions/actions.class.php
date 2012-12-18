@@ -16,7 +16,7 @@ class continuous_elicitationActions extends sfActions {
         $this->variable = $variable;
         $min = null;
         $max = null;
-        foreach ($variable->getResults() as $res) {
+        foreach ($variable->getContinuousResults() as $res) {
             if ($res->getProgress() == 100) {
                 if (empty($min)) {
                     $min = $res->getMinimum();
@@ -81,21 +81,17 @@ class continuous_elicitationActions extends sfActions {
         $median = $request->getParameter('median');
 
         $this->getResponse()->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
-
         $pdf = $this->fitPDF($min, $max, $lower, $median, $upper);
         $output = array('name' => $pdf['name'], 'parameters' => $pdf['parameters']);
-
         $d = new Distribution();
         $d->setName($pdf['name']);
-        //var_dump($pdf['parameters']);
+        // var_dump($pdf['parameters']);
         foreach ($pdf['parameters'] as $id => $p) {
-
             $p1 = new DistributionParameter();
             $p1->setName($id);
             $p1->setValue($p);
             $d->Parameters[] = $p1;
         }
-        //var_dump($d);
         return $this->renderText($d->toJSON());
     }
 
@@ -257,10 +253,8 @@ class continuous_elicitationActions extends sfActions {
 
         // generate R command
         $cmd = '"expert.pdf <- list(';
-
-        //TODO add the actual pooling code here.
         // Load the latest distribution
-        $temp_results = $task->Results;
+        $temp_results = $task->getContinuousResults();
         $results = Array();
         // filter null distributions
         foreach ($temp_results as $temp_r) {

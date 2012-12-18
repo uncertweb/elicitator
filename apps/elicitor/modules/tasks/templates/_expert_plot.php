@@ -4,8 +4,6 @@
 <?php use_javascript('jstat-0.1.0.js'); ?>
 <?php use_javascript('flot-plot.js'); ?>
 
-
-
 <div class="expert">
     <h3 id="expert_<?php echo $expert->getId(); ?>">
         <?php echo $expert->getFullName(); ?>
@@ -90,7 +88,7 @@
             try
             {
                 var dist = DistributionFactory.build(<?php echo $distribution; ?>);
-                new ContinuousPlot(id, dist, new Range(<?php echo $abs_min; ?>,<?php echo $abs_max; ?>,100), marker_obj,{ legend: {show: false }, showMarkers: false}, maxY);
+                new ContinuousPlot(id, dist, new Range(<?php echo $abs_min; ?>,<?php echo $abs_max; ?>,100), marker_obj,{ legend: {show: false }, showMarkers: false});
             } catch(err) {
                 // null distribution
                 new ContinuousPlot(id, null, new Range(<?php echo $abs_min; ?>,<?php echo $abs_max; ?>,100), marker_obj,{ legend: {show: false }, showMarkers: false});

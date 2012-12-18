@@ -52,8 +52,8 @@ use_javascript('tasks');
         </thead>
         <tbody id="variables">
             <?php foreach ($tasks as $task): ?>
-			
-                <tr id="variable_<?php echo $task->getId(); ?>" <?php if($task->getOptOut($sf_user->getGuardUser()->getId())) { echo 'class="disabled"'; } ?>> 
+
+                <tr id="variable_<?php echo $task->getId(); ?>" <?php if($task->getOptOut($sf_user->getGuardUser()->getId())) { echo 'class="disabled"'; } ?>>
                     <td><?php echo $task->getName(); ?></td>
                     <td><?php echo $task->getVariableType(); ?></td>
                     <td><?php echo $task->getDateTimeObject('deadline')->format('d/m/Y'); ?></td>
@@ -179,6 +179,6 @@ use_javascript('tasks');
 <div class="hidden" id="opt-out" title="Opt out">
 <form id="opt-out-form" name="opt-out" action="" method="post">
 	<label for="reason">Reason:</label><br />
-	<textarea placeholder="Enter your reason for opting out here..." name="reason" id="opt-out[reason]"></textarea> 
+	<textarea placeholder="Enter your reason for opting out here..." name="reason" id="opt-out[reason]"></textarea>
 </form>
 </div>

@@ -3,7 +3,6 @@
 
 # default values
 all:
-  
   from_email_address: webmaster@mrwillihog.co.uk
   from_email_name:    The Elicitor
   recaptcha_public_key: 6LezZcASAAAAAJ3QIitXJ8DEJzXMT-scfGmPEFZp
@@ -12,4 +11,4 @@ all:
   max_problems_per_page: 5
   elicitation_problem_upload_dir: documents/elicitation_problems/
   thumbnail_upload_dir: thumbnails/
-  rscript_path: /usr/local/bin/
+  rscript_path: /usr/bin/

@@ -5,14 +5,6 @@
     <?php echo $task->getElicitationProblem()->getDescription(); ?>
 </p>
 <?php else: ?>
-<?php if($task->getStudyAreaDescription()): ?>
-  <h2 class="blue">Study area description</h2>
-  <?php echo $task->getStudyAreaDescription(); ?>
-<?php endif; ?>
-<?php if($task->getStudyAreaGeometry()): ?>
-  <h2 class="blue">Study area</h2>
-  <?php include_partial('spatial_elicitation/study_area', array('task' => $task)); ?>
-<?php endif; ?>
 <?php if ($task->getResearchObjective()): ?>
             <h2 class="blue">Research objectives</h2>
 <?php echo $task->getResearchObjective(); ?>

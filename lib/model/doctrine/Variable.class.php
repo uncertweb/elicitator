@@ -106,24 +106,26 @@ class Variable extends BaseVariable {
 
     public function getExpertProgress($expert_id) {
         // Get the results
-        $results = $this->getResults();
-        if($results->count() == 0) {
+        if($this->getVariableType() == "Continuous") {
+            $results = $this->getContinuousResults();
+        } else {
             $results = $this->getCategoricalResults();
         }
+
         $total = 0;
         foreach ($results as $result) {
             if ($result->getExpert()->getId() == $expert_id) {
                 $total += $result->getProgress();
             }
         }
-
         return $total;
     }
 
     public function getProgress() {
         // Get the results
-        $results = $this->getResults();
-        if($results == null || empty($results) || $results->count() == 0) {
+        if($this->getVariableType() == "Continuous") {
+            $results = $this->getContinuousResults();
+        } else {
             $results = $this->getCategoricalResults();
         }
         $total = 0;

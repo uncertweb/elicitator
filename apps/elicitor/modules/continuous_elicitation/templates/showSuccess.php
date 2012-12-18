@@ -57,9 +57,9 @@
                     // push the main distribution
                     distributions.push(DistributionFactory.build(<?php echo $variable->Distribution->toJSON(); ?>));
                     // push the other distributions
-    <?php for ($i = 0; $i < sizeof($variable->Results); $i++): ?>
-        <?php if (!is_null($variable->Results[$i]->distribution_id)): ?>
-                        var dist = DistributionFactory.build(<?php echo $variable->Results[$i]->Distribution->toJSON(); ?>);
+    <?php for ($i = 0; $i < sizeof($variable->ContinuousResults); $i++): ?>
+        <?php if (!is_null($variable->ContinuousResults[$i]->distribution_id)): ?>
+                        var dist = DistributionFactory.build(<?php echo $variable->ContinuousResults[$i]->Distribution->toJSON(); ?>);
                         var pdfs = dist.density(new Range(<?php echo $abs_min ?>, <?php echo $abs_max ?>, 100));
                         var max = 0;
                         for(var i = 0; i < pdfs.length; i++) {
@@ -120,7 +120,7 @@
             <?php foreach ($variable->getExperts() as $expert): ?>
                 <?php if ($expert->getTaskProgress($variable->getId()) == 100): ?>
                     <?php include_component('tasks', 'expert_plot', array('variable_id' => $variable->getId(), 'expert_id' => $expert->getId(), 'abs_min' => $abs_min, 'abs_max' => $abs_max)); ?>
-                
+
 				<?php elseif($variable->getOptOut($expert->getId())): ?>
 					<div class="expert">
 						<h3>

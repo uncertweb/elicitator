@@ -65,41 +65,6 @@ CategoricalElicitation:
       foreign: id
       foreignAlias: ElicitationAnswers
 
-SpatialElicitation:
-  actAs: { Timestampable: ~ }
-  columns:
-    read_briefing_document: { type: boolean, notnull: true, default: false }
-    minimum: { type: double, notnull: false }
-    maximum: { type: double, notnull: false }
-    lower: { type: double, notnull: false }
-    median: { type: double, notnull: false }
-    upper: { type: double, notnull: false }
-    #lsq:    { type: double }
-    enabled: { type: boolean, default: true }
-    expert_id: { type: integer, notnull: true }
-    variable_id: { type: integer, notnull: true }
-    distribution_id: { type: integer, notnull: false }
-    opt_out: { type: boolean, default: false }
-    reason: { type: text, notnull: false }
-  relations:
-    Variable:
-      class: Variable
-      local: variable_id
-      foreign: id
-      foreignAlias: Results
-      onDelete: CASCADE
-    Expert:
-      class: sfGuardUser
-      local: expert_id
-      foreign: id
-      foreignAlias: ElicitationAnswers
-    Distribution:
-      class: Distribution
-      local: distribution_id
-      foreign: id
-      foreignAlias: Elicitation
-      foreignType: one
-
 ContinuousElicitation:
   actAs: { Timestampable: ~ }
   columns:
@@ -120,7 +85,7 @@ ContinuousElicitation:
       class: Variable
       local: variable_id
       foreign: id
-      foreignAlias: Results
+      foreignAlias: ContinuousResults
       onDelete: CASCADE
     Expert:
       class: sfGuardUser
@@ -138,7 +103,7 @@ Variable:
   actAs: { Timestampable: ~ }
   columns:
     name: { type: string(255), notnull: true }
-    variable_type: { type: enum, values: ['Categorical', 'Continuous', 'Spatial'], notnull: true }
+    variable_type: { type: enum, values: ['Categorical', 'Continuous'], notnull: true }
     variable_parameters: { type: string(1000), notnull: false }
     deadline: { type: date}
     problem_id: { type: integer, notnull: true }
@@ -151,8 +116,6 @@ Variable:
     requirements: { type: string(1000) }
     bias_causes: { type: string(1000) }
     recommended_literature: { type: string(1000) }
-    study_area_description: { type: string(1000) }
-    study_area_geometry:    { type: string(1000) }
     distribution_id: { type: integer, notnull: false }
   relations:
     ElicitationProblem:
