@@ -9,6 +9,10 @@ change_password:
   param: { module: user, action: password }
   requirements: { id: \d+ }
 
+sf_guard_password:
+  url: /request_password
+  param: { module: sfGuardAuth, action: password }
+
 control_panel:
   url: /control_panel
   param: { module: user, action: show }

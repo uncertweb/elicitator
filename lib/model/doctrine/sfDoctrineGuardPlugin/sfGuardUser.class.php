@@ -145,6 +145,14 @@ class sfGuardUser extends PluginsfGuardUser {
         return $q->count();
     }
 
+    public function resetPassword()
+    {
+      $password = sfGuardUser::generateRandomPassword(8);
+      $this->setPassword($password);
+      $this->save();
+      return $password;
+    }
+
     public static function generateRandomPassword($length = 8) {
         $possible_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $password = '';

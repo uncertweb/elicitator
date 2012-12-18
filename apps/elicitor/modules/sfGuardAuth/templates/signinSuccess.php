@@ -11,7 +11,7 @@
             <tr class="forgot">
                 <td></td>
                 <td>
-                    <a href="">Forgot your password?</a>
+                    <a href="<?php echo url_for('@sf_guard_forgot_password') ?>">Forgot your password?</a>
                 </td>
             </tr>
             <?php echo $form['_csrf_token']->render(); ?>
@@ -27,7 +27,7 @@
                 Not a member? <a href="<?php echo url_for('@register'); ?>">Register for free</a>
             </li>
         </ul>
-          
+
         </div>
         <div class="clear"></div>
 

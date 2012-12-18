@@ -14,6 +14,34 @@ require_once(sfConfig::get('sf_plugins_dir') . '/sfDoctrineGuardPlugin/modules/s
 
 class sfGuardAuthActions extends BasesfGuardAuthActions {
 
+    public function executePassword($request)
+    {
+        $this->form = new RequestPasswordForm();
+        if($request->isMethod('post'))
+        {
+            // process request
+            $this->form->bind($request->getParameter('request_password'));
+          if ($this->form->isValid()) {
+                // check that the email address exists in the system
+                $exists = Doctrine::getTable('sfGuardUser')->findOneByUsername($this->form->getValue('email_address'));
+                if($exists) {
+                    // found
+                    $new_password = $exists->resetPassword();
+                    $mailer = $this->getMailer();
+                    $mailer->sendNextImmediately()->send(new ResetPasswordMessage($exists, $new_password));
+                    $this->getUser()->setFlash('notice', 'Your password has been reset, you should receive an email at your registered address with your new password.');
+                    $this->redirect('sf_guard_signin');
+                } else {
+                    $this->getUser()->setFlash('alert', 'The email address you entered was not found in our system. Please try again.', false);
+                }
+            } else {
+                $schema = $this->form->getFormFieldSchema();
+
+                $this->getUser()->setFlash('alert', $schema['email_address']->getError(), false);
+            }
+        }
+    }
+
     public function executeSignin($request) {
         $user = $this->getUser();
         if ($user->isAuthenticated()) {
@@ -51,7 +79,7 @@ class sfGuardAuthActions extends BasesfGuardAuthActions {
             if ($request->isXmlHttpRequest()) {
                 $this->getResponse()->setHeaderOnly(true);
                 $this->getResponse()->setStatusCode(401);
-                
+
                 return sfView::NONE;
             }
 
@@ -63,7 +91,7 @@ class sfGuardAuthActions extends BasesfGuardAuthActions {
             if ($this->getModuleName() != $module) {
                 return $this->redirect($module . '/' . sfConfig::get('sf_login_action'));
             }
-            
+
             $this->getResponse()->setStatusCode(401);
         }
     }
@@ -78,10 +106,6 @@ class sfGuardAuthActions extends BasesfGuardAuthActions {
 
     public function executeSecure($request) {
         $this->getResponse()->setStatusCode(403);
-    }
-
-    public function executePassword($request) {
-        throw new sfException('This method is not yet implemented.');
     }
 
 }

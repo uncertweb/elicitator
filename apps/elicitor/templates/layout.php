@@ -38,10 +38,15 @@
                     <div id="body">
                         <div class="container_12">
                     <?php if ($sf_user->hasFlash('notice')): ?>
-                                    <div class="grid_12">
-                                        <div class="flash_notice"><?php echo $sf_user->getFlash('notice') ?></div>
-                                    </div>
-                                    <div class="clear"></div>
+                        <div class="grid_12">
+                            <div class="flash_notice"><?php echo $sf_user->getFlash('notice') ?></div>
+                        </div>
+                        <div class="clear"></div>
+                    <?php elseif ($sf_user->hasFlash('alert')): ?>
+                        <div class="grid_12">
+                            <div class="flash_alert"><?php echo $sf_user->getFlash('alert') ?></div>
+                        </div>
+                        <div class="clear"></div>
                     <?php endif ?>
                     <?php echo $sf_content ?>
                 </div>
